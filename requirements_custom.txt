@@ -1,0 +1,19 @@
+# Extended requirements for RunPod deployment
+diffusers==0.29.0
+torch==2.2.1
+torchaudio==2.2.1
+torchvision==0.17.1
+transformers==4.43.2
+imageio==2.31.1
+imageio-ffmpeg==0.5.1
+omegaconf==2.3.0
+tqdm==4.65.2
+librosa==0.10.2.post1
+einops==0.7.0
+opencv-python==4.8.1.78
+Pillow==10.2.0
+numpy==1.24.3
+scipy==1.10.1
+runpod==1.6.2
+requests==2.31.0
+huggingface_hub>=0.23.2
