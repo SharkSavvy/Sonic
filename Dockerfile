@@ -3,7 +3,7 @@ FROM runpod/pytorch:2.2.0-py3.10-cuda12.1.1-devel-ubuntu22.04
 # Set working directory
 WORKDIR /workspace
 
-# Install system dependencies
+# Install system dependencies and accelerate for faster loading
 RUN apt-get update && apt-get install -y \
     git \
     wget \
@@ -18,12 +18,13 @@ RUN apt-get update && apt-get install -y \
 # Clone Sonic repository
 RUN git clone https://github.com/jixiaozhong/Sonic.git
 
-# Install Python dependencies
+# Install Python dependencies with accelerate for performance
 WORKDIR /workspace/Sonic
 COPY requirements_custom.txt .
 RUN pip install --upgrade pip && \
     pip install -r requirements_custom.txt && \
     pip install runpod && \
+    pip install accelerate && \
     rm -rf /root/.cache/pip
 
 # Download model weights using huggingface-cli
@@ -32,7 +33,7 @@ RUN pip install huggingface_hub[cli] && \
     huggingface-cli download stabilityai/stable-video-diffusion-img2vid-xt --local-dir checkpoints/stable-video-diffusion-img2vid-xt && \
     huggingface-cli download openai/whisper-tiny --local-dir checkpoints/whisper-tiny
 
-# Copy the RunPod handler
+# Copy the RunPod handler - UPDATED VERSION
 COPY handler.py /workspace/handler.py
 
 # Set environment variables
